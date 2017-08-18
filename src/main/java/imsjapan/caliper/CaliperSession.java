@@ -10,6 +10,8 @@ import org.imsglobal.caliper.entities.media.MediaLocation;
 import org.imsglobal.caliper.entities.session.Session;
 import org.imsglobal.caliper.events.SessionEvent;
 import org.joda.time.DateTime;
+import org.joda.time.Seconds;
+import org.joda.time.format.ISOPeriodFormat;
 
 public class CaliperSession {
 
@@ -98,6 +100,7 @@ public class CaliperSession {
      */
     public static boolean sendSessionLoggedOut(String userName, DateTime loginTime) {
         DateTime now = DateTime.now();
+    	String duration = ISOPeriodFormat.standard().print(Seconds.secondsBetween(loginTime, now));
 
         Person actor = Person.builder()
     			.id("https://example.com/persons/" + userName)
@@ -111,6 +114,7 @@ public class CaliperSession {
     			.dateModified(loginTime)
     			.startedAtTime(loginTime)
     			.endedAtTime(now)
+    			.duration(duration)
     			.build();
       
         SessionEvent sessionEvent = SessionEvent.builder()
