@@ -102,33 +102,28 @@ public class CaliperSession {
         DateTime now = DateTime.now();
     	String duration = ISOPeriodFormat.standard().print(Seconds.secondsBetween(loginTime, now));
 
-        Person actor = Person.builder()
-    			.id("https://example.com/persons/" + userName)
-    			.name(userName)
-    			.build();
+        // BEGIN: 送信用イベントの構築
+        // この部分でLoggedOutイベントの構築を行う。
+        // ログイン時とは異なり、session に endedAtTime, duration が必要となる
 
-    	Session session = Session.builder()
-    			.id("https://example.com/sessions/12345")
-    			.actor(actor)
-    			.dateCreated(loginTime)
-    			.dateModified(loginTime)
-    			.startedAtTime(loginTime)
-    			.endedAtTime(now)
-    			.duration(duration)
-    			.build();
-      
-        SessionEvent sessionEvent = SessionEvent.builder()
-            .actor(actor)
-            .action(Action.LOGGED_OUT.getValue())
-            .object(app)
-            .target(session)
-            .eventTime(now)
-            .build();
+
+
+
+
+
+
+
+
+
+    	SessionEvent sessionEvent = null;
+
+
+        // END: 送信用イベントの構築
 
        	try {
             sensor.send(sensor, sessionEvent);
             return true;
-    	} catch (Error e) {
+    	} catch (Throwable e) {
     		e.printStackTrace();
     		return false;
     	}
