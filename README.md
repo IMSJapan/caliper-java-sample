@@ -4,6 +4,17 @@
 
 イベントの送信処理は src/main/java/imsglobal/caliper/CaliperSession.java に記述されています。
 
+## 前準備
+
+IMSGlobalのGitHubからSensor APIを入手します。
+
+[IMS Global caliper-java](https://github.com/IMSGlobal/caliper-java-public)
+
+ダウンロードしたソースを下記のコマンドでインストールします。
+
+    mvn clean install
+
+
 ## 実行方法
 
 CaliperSession.java の ENDPOINT や API_KEY を各自の環境に合わせた値に書き換えてください。
